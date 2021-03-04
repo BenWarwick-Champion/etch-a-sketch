@@ -17,9 +17,13 @@ body {
 h1 {
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    margin: 2em;
+    margin: 2em 0 0;
 }
 
+/* Controls */
+button { 
+    margin: 1em;
+}
 
 /* Etch-A-Sketch Grid */
 div {

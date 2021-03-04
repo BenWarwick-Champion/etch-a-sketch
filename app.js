@@ -1,3 +1,4 @@
+/* Functions */
 function createGrid(size) {
     const container = document.querySelector('.container');
 
@@ -13,32 +14,37 @@ function createGrid(size) {
             square.classList.add('square');
             row.appendChild(square);
         }
-    } );
-}
-
-function initSquares() {
-    const squares = document.querySelectorAll('.square');
-    squares.forEach((square) => {
-        square.addEventListener('mouseover', () => {
-            modeGreyscale(square);
-        });
     });
+
+    const squares = document.querySelectorAll('.square');
+    squares.forEach(square => {
+        square.addEventListener('mouseover', updateColor);
+    })
 }
 
-function modeBlack(square) {
-    square.style.cssText = "background-color: #000";
-}
-
-function modeErase(square) {
-    square.style.cssText = "background-color: #fff";
+function updateColor() {
+    switch (mode) {
+        case 'black':
+            this.style.backgroundColor = '#000';
+            break;
+        case 'greyscale':
+            modeGreyscale(this);
+            break;
+        case 'erase':
+            this.style.backgroundColor = '#fff';
+            break;
+        default:
+            console.log("ERROR: Mode-selection");
+    }
 }
 
 function modeGreyscale(square) {
     let currColour = square.style.backgroundColor;
+    console.log(currColour);
     if (currColour) {
-        square.style.cssText = `background-color: ${incGreyscale(currColour)};`;
+        square.style.backgroundColor = `${incGreyscale(currColour)}`
     } else {
-        square.style.cssText = "background-color: #ddd;";
+        square.style.backgroundColor = '#ddd';
     };
 }
 
@@ -50,6 +56,22 @@ function incGreyscale(rgb) {
     return `rgb(${r-32}, ${g-32}, ${b-32})`;
 }
 
+
+// On page load
 createGrid(40);
-initSquares();
-console.log((parseInt('d', 16) - 2).toString(16));
+
+let mode = 'black';
+const squares = document.querySelectorAll('.square');
+const buttons = document.querySelectorAll('button');
+
+// Event Listeners
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (button.id !== 'reset') {
+            mode = button.id;
+        } else {
+            let squares = document.querySelectorAll('.square');
+            squares.forEach(square => square.style.backgroundColor = '#fff');
+        };
+    });
+});
