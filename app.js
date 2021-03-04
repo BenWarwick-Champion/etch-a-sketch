@@ -58,11 +58,12 @@ function incGreyscale(rgb) {
 
 
 // On page load
-createGrid(40);
+createGrid(55);
 
 let mode = 'black';
 const squares = document.querySelectorAll('.square');
 const buttons = document.querySelectorAll('button');
+const slider = document.querySelector('.slider');
 
 // Event Listeners
 buttons.forEach((button) => {
@@ -74,4 +75,12 @@ buttons.forEach((button) => {
             squares.forEach(square => square.style.backgroundColor = '#fff');
         };
     });
+});
+
+slider.addEventListener('change', () => {
+    let container = document.querySelector('.container');
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+    createGrid(slider.value);
 });
