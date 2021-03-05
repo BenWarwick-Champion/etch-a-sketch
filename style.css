@@ -21,6 +21,10 @@ h1 {
 }
 
 /* Controls */
+#controls {
+    display: flex;
+}
+
 button { 
     margin: 1em;
     width: 100px;
@@ -37,6 +41,21 @@ button:active {
 
 button:hover {
     box-shadow: 0 0 8px 2px rgba(0,0,0,0.2);
+}
+
+#colour {
+    margin: 1em;
+    width: 100px;
+    height: 2em;
+    padding: 0.4em 2.5em;
+    background: none;
+    border: solid 1px;
+    border-radius: 15px; 
+}
+
+#colour:active {
+    background-color: #666;
+    color: #fff;
 }
 
 .slider {

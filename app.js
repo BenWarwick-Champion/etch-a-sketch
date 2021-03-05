@@ -32,6 +32,9 @@ function updateColor() {
             case 'greyscale':
                 modeGreyscale(this);
                 break;
+            case 'colour':
+                this.style.backgroundColor = colour;
+                break;
             case 'erase':
                 this.style.backgroundColor = '#fff';
                 break;
@@ -74,9 +77,11 @@ function endDrawing() {
 createGrid(55);
 
 let mode = 'black';
+let colour = 'red';
 let drawing = false;
 const squares = document.querySelectorAll('.square');
 const buttons = document.querySelectorAll('button');
+const picker = document.querySelector('#colour');
 const slider = document.querySelector('.slider');
 const container = document.querySelector('.container');
 
@@ -92,7 +97,12 @@ buttons.forEach((button) => {
     });
 });
 
-slider.addEventListener('change', () => {
+picker.addEventListener('input', (e) => {
+    mode = 'colour';
+    colour = e.target.value;
+});
+
+slider.addEventListener('input', () => {
     let container = document.querySelector('.container');
     while (container.firstChild) {
         container.removeChild(container.firstChild);
