@@ -19,6 +19,7 @@ function createGrid(size) {
     const squares = document.querySelectorAll('.square');
     squares.forEach(square => {
         square.addEventListener('mouseover', updateColor);
+        square.addEventListener('touchmove', updateColor);
     })
 }
 
@@ -59,6 +60,15 @@ function incGreyscale(rgb) {
     return `rgb(${r-32}, ${g-32}, ${b-32})`;
 }
 
+function startDrawing(event) {
+    event.preventDefault(); // Prevent selection/drag behaviour
+    drawing = true;
+}
+
+function endDrawing() {
+    drawing = false;
+}
+
 
 // On page load
 createGrid(55);
@@ -90,10 +100,9 @@ slider.addEventListener('change', () => {
     createGrid(slider.value);
 });
 
-container.addEventListener('mousedown', () => {
-    drawing = true;
-});
+container.addEventListener('mousedown', startDrawing, false);
+container.addEventListener('touchstart', startDrawing, false);
 
-container.addEventListener('mouseup', () => {
-    drawing = false;
-});
+// Capture this event anywhere in case you drag out of bounds
+document.addEventListener('mouseup', endDrawing, false);
+document.addEventListener('touchend', endDrawing, false);
