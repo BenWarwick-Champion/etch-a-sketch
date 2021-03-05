@@ -23,24 +23,27 @@ function createGrid(size) {
 }
 
 function updateColor() {
-    switch (mode) {
-        case 'black':
-            this.style.backgroundColor = '#000';
-            break;
-        case 'greyscale':
-            modeGreyscale(this);
-            break;
-        case 'erase':
-            this.style.backgroundColor = '#fff';
-            break;
-        default:
-            console.log("ERROR: Mode-selection");
+    if (drawing) {
+        switch (mode) {
+            case 'black':
+                this.style.backgroundColor = '#000';
+                break;
+            case 'greyscale':
+                modeGreyscale(this);
+                break;
+            case 'erase':
+                this.style.backgroundColor = '#fff';
+                break;
+            default:
+                console.log("ERROR: Mode-selection");
+        }
+    } else {
+        return;
     }
 }
 
 function modeGreyscale(square) {
     let currColour = square.style.backgroundColor;
-    console.log(currColour);
     if (currColour) {
         square.style.backgroundColor = `${incGreyscale(currColour)}`
     } else {
@@ -61,9 +64,11 @@ function incGreyscale(rgb) {
 createGrid(55);
 
 let mode = 'black';
+let drawing = false;
 const squares = document.querySelectorAll('.square');
 const buttons = document.querySelectorAll('button');
 const slider = document.querySelector('.slider');
+const container = document.querySelector('.container');
 
 // Event Listeners
 buttons.forEach((button) => {
@@ -83,4 +88,12 @@ slider.addEventListener('change', () => {
         container.removeChild(container.firstChild);
     }
     createGrid(slider.value);
+});
+
+container.addEventListener('mousedown', () => {
+    drawing = true;
+});
+
+container.addEventListener('mouseup', () => {
+    drawing = false;
 });
